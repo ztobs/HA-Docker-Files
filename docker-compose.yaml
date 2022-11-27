@@ -17,7 +17,7 @@ services:
     image: codercom/code-server
     volumes:
       # Set <project dir> to the directory you want to open in VS Code.
-      - /home/ubuntu/Dev/Docker/homeassistant:/config
+      - /home/ubuntu/Dev/Docker:/config
       # <vs code config> should point to a local dir where vs code stores its data.
       - /home/ubuntu/Dev/Docker/vscode:/home/coder/.local/share/code-server
     ports:
@@ -65,7 +65,7 @@ services:
       - /run/udev:/run/udev:ro
     ports:
       # Frontend port
-      - 8080:8080
+      - 8081:8080
     deploy:
       resources:
         limits:
