@@ -4,7 +4,7 @@ services:
     container_name: homeassistant
     image: "homeassistant/home-assistant:latest"
     volumes:
-      - /PATH_TO_YOUR_CONFIG:/config
+      - /home/ubuntu/Dev/Docker/homeassistant:/config
       - /etc/localtime:/etc/localtime:ro
     restart: unless-stopped
     privileged: true
@@ -17,9 +17,9 @@ services:
     image: codercom/code-server
     volumes:
       # Set <project dir> to the directory you want to open in VS Code.
-      - /PATH_TO_YOUR_CONFIG:/config
+      - /home/ubuntu/Dev/Docker/homeassistant:/config
       # <vs code config> should point to a local dir where vs code stores its data.
-      - /PATH_TO_YOUR_CONFIG:/home/coder/.local/share/code-server
+      - /home/ubuntu/Dev/Docker/vscode:/home/coder/.local/share/code-server
     ports:
       - "8443:8080"
     command: code-server --auth none --disable-telemetry /config
@@ -34,9 +34,9 @@ services:
       # This port is for Webhooks
       - "9001:9001"
     volumes:
-      - /PATH_TO_YOUR_CONFIG:/mosquitto/config
-      - /PATH_TO_YOUR_DATA:/mosquitto/data
-      - /PATH_TO_YOUR_LOG:/mosquitto/log
+      - /home/ubuntu/Dev/Docker/mosquitto/config:/mosquitto/config
+      - /home/ubuntu/Dev/Docker/mosquitto/data:/mosquitto/data
+      - /home/ubuntu/Dev/Docker/mosquitto/log:/mosquitto/log
       
   #ESPHome 
   esphome:
@@ -46,7 +46,7 @@ services:
       - "6052:6052"
     volumes:
       # Update PATH_TO_YOUR_CONFIG, the :rw gives the container Read/Write access
-      - /PATH_TO_YOUR_CONFIG:/config:rw
+      - /home/ubuntu/Dev/Docker/esphome/config:/config:rw
       # Use local time for logging timestamps
       - /etc/localtime:/etc/localtime:ro
     # You do have to map a serial port here. Determine your port and uncomment.
@@ -61,7 +61,7 @@ services:
       - mosquitto
     image: koenkk/zigbee2mqtt
     volumes:
-      - /PATH_TO_YOUR_DATA:/app/data
+      - /home/ubuntu/Dev/Docker/zigbee2mqtt/data:/app/data
       - /run/udev:/run/udev:ro
     ports:
       # Frontend port
